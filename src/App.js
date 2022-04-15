@@ -9,6 +9,7 @@ import AuthContext from "./context/auth-context";
 const App = () => {
   const [displayArray, setDisplayArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const userContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -32,10 +33,18 @@ const App = () => {
       },
     })
       .then((res) => {
-        return res.json();
+        if (!res.ok) {
+          throw new Error("Unable to connect to server");
+        } else {
+          return res.json();
+        }
       })
       .then((data) => {
         setDisplayArray(data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setError(true);
         setIsLoading(false);
       });
   }, []);
@@ -52,6 +61,7 @@ const App = () => {
           <Homepage
             listdata={displayArray.sort((a, b) => b.value - a.value)}
             isLoading={isLoading}
+            isError={error}
           />
         </Route>
         <Route exact path="/">
