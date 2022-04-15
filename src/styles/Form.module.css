@@ -1,0 +1,87 @@
+.result {
+  font-family: monospace;
+}
+
+.form {
+  margin: 0 auto;
+  margin-top: 6vh;
+  text-align: center;
+  font-family: monospace;
+  font-size: larger;
+}
+.input1 .input2 {
+  width: 10vw;
+  height: 7vh;
+}
+.text {
+  margin-top: 1vh;
+}
+.MuiInput.root {
+  color: red;
+}
+.button {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  font-family: monospace;
+  margin-left: 2vw;
+}
+.button1 {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  font-family: monospace;
+  margin-left: 2vw;
+}
+
+.button .save {
+  background-color: rgb(73, 150, 11);
+}
+.button .save:hover {
+  background-color: rgb(60, 119, 13);
+}
+
+.error {
+  display: block;
+  margin: 0 auto;
+  width: 25vw;
+  margin-top: 1vh;
+  font-family: monospace;
+  white-space: break-spaces;
+  font-size: larger;
+  text-align: center;
+  color: crimson;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  height: 20vh;
+  margin: 0 auto;
+  margin-left: 10vw;
+  align-items: center;
+}
+
+.leftContainer {
+  width: 60vw;
+  height: inherit;
+  justify-content: left;
+  text-align: left;
+}
+.space {
+  margin-right: 1vh;
+}
+
+.inputs {
+  display: flex;
+}
+.rightContainer {
+  width: 20vw;
+  height: inherit;
+  justify-content: center;
+  padding-left: 1vw;
+  margin-top: 2vh;
+}
+
+.rightContainer h3 {
+  font-size: 1.3em;
+}
