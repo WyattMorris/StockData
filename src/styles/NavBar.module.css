@@ -23,12 +23,14 @@ nav .right {
   color: #77a6b6;
   background-color: white;
   margin-right: 6vw;
+  font-size: larger;
 }
 
 nav .left {
   color: #77a6b6;
   background-color: white;
   margin-right: 2vw;
+  font-size: larger;
 }
 
 nav .left:hover {

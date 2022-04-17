@@ -13,36 +13,58 @@ import AuthContext from "../context/auth-context";
 
 const DenseTable = (props) => {
   const userContext = useContext(AuthContext);
-
+  const myFontSize = "17px";
   return (
     <TableContainer
       component={Paper}
       sx={{
-        width: "80vw",
+        width: "60vw",
         margin: "0 auto",
-        marginTop: "2vh",
+        marginTop: "1vh",
         opacity: "1",
       }}
     >
-      <Table sx={{ width: "80vw" }} size="small" aria-label="a dense table">
+      <Table sx={{ width: "60vw" }} size="small" aria-label="a dense table">
         <TableHead sx={{ backgroundColor: "#D8D8D8" }}>
           <TableRow>
-            <TableCell>Company&nbsp;Name</TableCell>
-            <TableCell align="right">Ticker</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Day&nbsp;Change</TableCell>
-            <TableCell align="right">Shares</TableCell>
-            <TableCell align="right">Value</TableCell>
-            <TableCell align="right">Annual&nbsp;Dividend</TableCell>
-            {!props.display && <TableCell align="right">Remove</TableCell>}
+            <TableCell sx={{ fontSize: myFontSize }}>
+              Company&nbsp;Name
+            </TableCell>
+            <TableCell sx={{ fontSize: myFontSize }} align="right">
+              Ticker
+            </TableCell>
+            <TableCell sx={{ fontSize: myFontSize }} align="right">
+              Price
+            </TableCell>
+            <TableCell sx={{ fontSize: myFontSize }} align="right">
+              Day&nbsp;Change
+            </TableCell>
+            <TableCell sx={{ fontSize: myFontSize }} align="right">
+              Shares
+            </TableCell>
+            <TableCell sx={{ fontSize: myFontSize }} align="right">
+              Value
+            </TableCell>
+            <TableCell sx={{ fontSize: myFontSize }} align="right">
+              Annual&nbsp;Dividend
+            </TableCell>
+            {!props.display && (
+              <TableCell sx={{ fontSize: myFontSize }} align="right">
+                Remove
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
           {props.listdata.map((ticker) => (
             <TableRow key={ticker.ticker}>
-              <TableCell>{ticker.fullName}</TableCell>
-              <TableCell align="right">{ticker.ticker}</TableCell>
-              <TableCell align="right">
+              <TableCell sx={{ fontSize: myFontSize }}>
+                {ticker.fullName}
+              </TableCell>
+              <TableCell sx={{ fontSize: myFontSize }} align="right">
+                {ticker.ticker}
+              </TableCell>
+              <TableCell sx={{ fontSize: myFontSize }} align="right">
                 <NumberFormat
                   value={ticker.price.toFixed(2)}
                   displayType={"text"}
@@ -53,7 +75,9 @@ const DenseTable = (props) => {
               <TableCell
                 align="right"
                 sx={
-                  ticker.change > 0 ? { color: "green" } : { color: "salmon" }
+                  ticker.change > 0
+                    ? { color: "green", fontSize: myFontSize }
+                    : { color: "salmon", fontSize: myFontSize }
                 }
               >
                 <NumberFormat
@@ -64,8 +88,10 @@ const DenseTable = (props) => {
                 />
                 %
               </TableCell>
-              <TableCell align="right">{ticker.amount}</TableCell>
-              <TableCell align="right">
+              <TableCell sx={{ fontSize: myFontSize }} align="right">
+                {ticker.amount}
+              </TableCell>
+              <TableCell sx={{ fontSize: myFontSize }} align="right">
                 <NumberFormat
                   value={(ticker.price * ticker.amount).toFixed(2)}
                   displayType={"text"}
@@ -73,7 +99,7 @@ const DenseTable = (props) => {
                   prefix={"$"}
                 />
               </TableCell>
-              <TableCell align="right">
+              <TableCell sx={{ fontSize: myFontSize }} align="right">
                 <NumberFormat
                   value={ticker.dividend.toFixed(2)}
                   displayType={"text"}

@@ -19,21 +19,36 @@ const NavBar = () => {
       <div className={styles.button}>
         {!isLoggedIn && (
           <Link to="/register/login">
-            <Button type="button" variant="contained" className={styles.left}>
+            <Button
+              type="button"
+              variant="contained"
+              size="large"
+              className={styles.left}
+            >
               Log In
             </Button>
           </Link>
         )}
         {!isLoggedIn && (
           <Link to="/register/signup">
-            <Button type="button" variant="contained" className={styles.right}>
+            <Button
+              type="button"
+              variant="contained"
+              size="large"
+              className={styles.right}
+            >
               Sign Up
             </Button>
           </Link>
         )}
         {isLoggedIn && !portfolio && (
           <Link to="/portfolio">
-            <Button type="button" variant="contained" className={styles.left}>
+            <Button
+              type="button"
+              variant="contained"
+              size="large"
+              className={styles.left}
+            >
               My Portfolio
             </Button>
           </Link>
@@ -43,6 +58,7 @@ const NavBar = () => {
             <Button
               type="button"
               variant="contained"
+              size="large"
               className={styles.right}
               onClick={userContext.logout}
             >

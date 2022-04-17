@@ -3,7 +3,6 @@
 }
 
 .form {
-  margin: 0 auto;
   margin-top: 6vh;
   text-align: center;
   font-family: monospace;
@@ -54,10 +53,9 @@
 .flexContainer {
   display: flex;
   flex-direction: row;
-  width: 80vw;
+  width: 60vw;
   height: 20vh;
   margin: 0 auto;
-  margin-left: 10vw;
   align-items: center;
 }
 

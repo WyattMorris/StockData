@@ -4,10 +4,10 @@ import styles from "../styles/App.module.css";
 import NavBar from "../components/NavBar";
 import Button from "@mui/material/Button";
 import DenseTable from "../UI/DenseTable";
-import Graph from "../components/Graph";
+// import Graph from "../components/Graph";
 import Footer from "../components/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../UI/Loading";
 
 const Homepage = (props) => {
@@ -36,20 +36,25 @@ const Homepage = (props) => {
                 display={true}
               />
               {props.isLoading && <Loading />}
+              {props.error && (
+                <p>
+                  Unable to Connect to Stock API <br /> Please try again later.
+                </p>
+              )}
             </div>
           </div>
-          <div className={styles.arrow}>
+          {/* <div className={styles.arrow}>
             <FontAwesomeIcon
               icon={faAngleDown}
               size={"2x"}
               sx={{ color: "crimson" }}
             />
-          </div>
-          <div className={styles.graphContainer}>
+          </div> */}
+          {/* <div className={styles.graphContainer}>
             <div className={styles.graph}>
               <Graph title="First Graph" />
             </div>
-          </div>
+          </div> */}
         </div>
         <Footer />
       </React.Fragment>

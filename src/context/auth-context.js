@@ -35,6 +35,7 @@ export const AuthProvider = (props) => {
     initialToken = tokenData.token;
   }
   const [token, setToken] = useState(initialToken);
+  const [firstName, setFirstName] = useState(null);
 
   useEffect(() => {
     if (token !== null) {
@@ -82,6 +83,8 @@ export const AuthProvider = (props) => {
 
     //Extract data from the token
     let decoded = jwt_decode(token);
+    console.log(decoded);
+    setFirstName(decoded.firstName);
     localStorage.setItem("expiration", decoded.exp);
     const remainingTime = decoded.exp - new Date().getTime();
     logoutTimer = setTimeout(logoutHandler, remainingTime);
@@ -94,14 +97,9 @@ export const AuthProvider = (props) => {
       );
       if (duplicate !== -1) {
         const addShares = {
-          id: prevState[duplicate].ticker.toUpperCase(),
-          ticker: prevState[duplicate].ticker.toUpperCase(),
+          ...prevState[duplicate],
           amount: +prevState[duplicate].amount + +data.amount,
-          price: +prevState[duplicate].price,
-          exchange: prevState[duplicate].exchange,
           value: +prevState[duplicate].value + +data.price * +data.amount,
-          fullName: prevState[duplicate].fullName,
-          dividend: prevState[duplicate].dividend,
           change: prevState[duplicate].change,
           positive: data.dayChange > 0 ? true : false,
         };
@@ -181,6 +179,7 @@ export const AuthProvider = (props) => {
     removeTicker: removeTickerHandler,
     saveList: saveListHandler,
     tickerList: tickerList,
+    firstName,
   };
 
   return (

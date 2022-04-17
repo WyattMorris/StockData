@@ -4,24 +4,81 @@ import classes from "../styles/SignUp.module.css";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import AuthContext from "../context/auth-context";
+import Footer from "../components/Footer";
 
 const SignUp = (props) => {
   const history = useHistory();
   const userContext = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+
+  const [errorState, setErrorState] = useState({
+    email: false,
+    password: false,
+    firstName: false,
+    lastName: false,
+    confirmPass: false,
+  });
+
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const confirmPassRef = useRef("");
+  const firstNameRef = useRef("");
+  const lastNameRef = useRef("");
+
   //Make isloading state and show a brief Loading message?
   const [inValid, setInvalid] = useState(false);
 
   const emailValueHandler = (event) => {
+    if (emailRef.current.value.trim().length === 0) {
+      setErrorState((prevState) => {
+        return { ...prevState, email: true };
+      });
+    }
     setEmail(event.target.value);
   };
+
   const passwordValueHandler = (event) => {
+    if (passwordRef.current.value.trim().length === 0) {
+      setErrorState((prevState) => {
+        return { ...prevState, password: true };
+      });
+    }
+
     setPassword(event.target.value);
   };
 
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
+  const firstNameValueHandler = (event) => {
+    if (firstNameRef.current.value.trim().length === 0) {
+      setErrorState((prevState) => {
+        return { ...prevState, firstName: true };
+      });
+    }
+    setFirstName(event.target.value);
+  };
+
+  const lastNameValueHandler = (event) => {
+    if (lastNameRef.current.value.trim().length === 0) {
+      setErrorState((prevState) => {
+        return { ...prevState, lastName: true };
+      });
+    }
+    setLastName(event.target.value);
+  };
+
+  const confirmPassValueHandler = (event) => {
+    if (confirmPassRef.current.value.trim().length === 0) {
+      setErrorState((prevState) => {
+        return { ...prevState, confirmPass: true };
+      });
+    }
+    setConfirmPass(event.target.value);
+  };
+
   //True for login, false for sign up
   const { page } = useParams();
 
@@ -34,9 +91,16 @@ const SignUp = (props) => {
     setInvalid(false);
     event.preventDefault();
 
+    // if (Object.values(errorState).every((item) => !item)) {
+    //   console.log(errorState);
+    //   return;
+    // }
+
     fetch("http://localhost:8080/registration/" + page, {
       method: "POST",
       body: JSON.stringify({
+        firstName: firstNameRef.current.value,
+        lastName: lastNameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
       }),
@@ -63,6 +127,9 @@ const SignUp = (props) => {
 
     setEmail("");
     setPassword("");
+    setConfirmPass("");
+    setFirstName("");
+    setLastName("");
   };
 
   return (
@@ -76,40 +143,98 @@ const SignUp = (props) => {
           {!logIn && <h1>Sign Up!</h1>}
           {logIn && <h1>Log In!</h1>}
           <div className={classes.inputs}>
-            <div className={classes.space}>
-              <TextField
-                className={classes.input1}
-                id="outlined-basic1"
-                label="Username"
-                variant="outlined"
-                type="username"
-                alt="Username Inpt"
-                value={email}
-                onChange={emailValueHandler}
-                inputRef={emailRef}
-              />
-            </div>
+            {!logIn && (
+              <div autoComplete="off">
+                <TextField
+                  className={
+                    errorState.firstName
+                      ? `${classes.fname}  ${classes.error}`
+                      : `${classes.fname}`
+                  }
+                  id="firstName"
+                  label="First Name"
+                  variant="outlined"
+                  type="text"
+                  alt="First Name"
+                  inputRef={firstNameRef}
+                  value={firstName}
+                  onChange={firstNameValueHandler}
+                />
+                <TextField
+                  className={
+                    errorState.lastName
+                      ? `${classes.lname}  ${classes.error}`
+                      : `${classes.lname}`
+                  }
+                  id="lastName"
+                  label="Last Name"
+                  variant="outlined"
+                  type="text"
+                  alt="Last Name"
+                  inputRef={lastNameRef}
+                  value={lastName}
+                  onChange={lastNameValueHandler}
+                />
+              </div>
+            )}
             <TextField
-              className={classes.input2}
-              id="outlined-basic2"
+              className={
+                errorState.email && !logIn
+                  ? `${classes.input1}  ${classes.error}`
+                  : `${classes.input1}`
+              }
+              id="email"
+              label="Email"
+              variant="outlined"
+              type="Email"
+              alt="Email Inpt"
+              value={email}
+              onChange={emailValueHandler}
+              inputRef={emailRef}
+            />
+            <TextField
+              className={
+                errorState.password
+                  ? `${classes.input2}  ${classes.error}`
+                  : `${classes.input2}`
+              }
+              id="password"
               label="Password"
               variant="outlined"
               type="password"
               alt="Password"
+              autoComplete="off"
               inputRef={passwordRef}
               value={password}
               onChange={passwordValueHandler}
-              step=".1"
             />
+            {!logIn && (
+              <TextField
+                className={
+                  errorState.confirmPass
+                    ? `${classes.confirm}  ${classes.error}`
+                    : `${classes.confirm}`
+                }
+                id="confirm-password"
+                label="Confirm Password"
+                variant="outlined"
+                type="password"
+                alt="Password"
+                autoComplete="off"
+                inputRef={confirmPassRef}
+                value={confirmPass}
+                onChange={confirmPassValueHandler}
+              />
+            )}
             <div className={classes.button}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" size="large">
                 Submit
               </Button>
             </div>
           </div>
         </div>
         {inValid && (
-          <div className={classes.error}>
+          <div className={classes.errorMsg}>
             {page === "login" && (
               <p>
                 Wrong Username or Password.
@@ -120,16 +245,8 @@ const SignUp = (props) => {
           </div>
         )}
       </form>
+      <Footer />
     </React.Fragment>
   );
 };
 export default SignUp;
-
-/*
-Without authentication, the user should not be able to access the profile pages.
-
-
-
-
-
-*/
