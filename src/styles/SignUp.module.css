@@ -19,24 +19,23 @@
 }
 
 .form {
-  /* height: 60vh; */
   margin: 0 auto;
   margin-top: 6vh;
   text-align: center;
   font-family: monospace;
   font-size: larger;
+  /* border: 1px solid black; */
 }
 
-.text {
-  margin-top: 1vh;
+.form h1 {
+  font-size: 40px;
 }
 
 .button {
-  margin-top: 2vh;
-  margin-bottom: 2vh;
+  margin-top: 3%;
 }
 
-.error {
+.errorMsg {
   display: block;
   margin: 0 auto;
   width: 25vw;
@@ -51,29 +50,38 @@
 .flexContainer {
   display: flex;
   flex-direction: column;
-  width: 80vw;
-  height: 40vh;
   margin: 0 auto;
-  margin-left: 10vw;
   align-items: center;
-}
-
-.space {
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  height: 76vh;
+  /* border: 1px solid black; */
 }
 
 .inputs {
+  width: 18vw;
   display: flex;
   flex-direction: column;
+  /* border: 1px solid black; */
 }
 
-.toggle {
-  margin-top: 2vh;
-  height: 20px;
-  color: #a9a9a9;
+.fname,
+.lname {
+  width: 49%;
 }
 
-.toggle:hover {
-  border-color: #a9a9a9;
+.inputs .fname {
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+.inputs .input1 {
+  margin-bottom: 2%;
+  /* border: 1px solid black; */
+}
+
+.inputs .confirm {
+  margin-top: 2%;
+}
+
+.error {
+  background-color: #ffcccc;
 }

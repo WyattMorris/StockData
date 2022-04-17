@@ -6,4 +6,5 @@ body {
   overflow-y: visible;
   overflow-x: hidden;
   background-color: aliceblue;
+  min-height: 100vh;
 }

@@ -36,6 +36,11 @@ const Homepage = (props) => {
                 display={true}
               />
               {props.isLoading && <Loading />}
+              {props.error && (
+                <p>
+                  Unable to Connect to Stock API <br /> Please try again later.
+                </p>
+              )}
             </div>
           </div>
           <div className={styles.arrow}>

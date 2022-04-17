@@ -35,6 +35,7 @@ export const AuthProvider = (props) => {
     initialToken = tokenData.token;
   }
   const [token, setToken] = useState(initialToken);
+  const [firstName, setFirstName] = useState(null);
 
   useEffect(() => {
     if (token !== null) {
@@ -82,6 +83,8 @@ export const AuthProvider = (props) => {
 
     //Extract data from the token
     let decoded = jwt_decode(token);
+    console.log(decoded);
+    setFirstName(decoded.firstName);
     localStorage.setItem("expiration", decoded.exp);
     const remainingTime = decoded.exp - new Date().getTime();
     logoutTimer = setTimeout(logoutHandler, remainingTime);
@@ -181,6 +184,7 @@ export const AuthProvider = (props) => {
     removeTicker: removeTickerHandler,
     saveList: saveListHandler,
     tickerList: tickerList,
+    firstName,
   };
 
   return (

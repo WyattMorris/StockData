@@ -9,6 +9,7 @@ import AuthContext from "./context/auth-context";
 const App = () => {
   const [displayArray, setDisplayArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const userContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -37,6 +38,10 @@ const App = () => {
       .then((data) => {
         setDisplayArray(data);
         setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setError(true);
       });
   }, []);
 
@@ -52,6 +57,7 @@ const App = () => {
           <Homepage
             listdata={displayArray.sort((a, b) => b.value - a.value)}
             isLoading={isLoading}
+            error={error}
           />
         </Route>
         <Route exact path="/">
