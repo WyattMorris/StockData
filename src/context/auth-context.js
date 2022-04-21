@@ -97,16 +97,10 @@ export const AuthProvider = (props) => {
       );
       if (duplicate !== -1) {
         const addShares = {
-          id: prevState[duplicate].ticker.toUpperCase(),
-          ticker: prevState[duplicate].ticker.toUpperCase(),
+          ...prevState[duplicate],
           amount: +prevState[duplicate].amount + +data.amount,
-          price: +prevState[duplicate].price,
-          exchange: prevState[duplicate].exchange,
           value: +prevState[duplicate].value + +data.price * +data.amount,
-          fullName: prevState[duplicate].fullName,
-          dividend: prevState[duplicate].dividend,
           change: prevState[duplicate].change,
-          positive: data.dayChange > 0 ? true : false,
         };
 
         prevState[duplicate] = addShares;
