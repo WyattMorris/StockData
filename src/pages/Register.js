@@ -16,7 +16,18 @@ const SignUp = (props) => {
   const [lastName, setLastName] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
+  //True for login, false for sign up
+  const { page } = useParams();
+
   const [errorState, setErrorState] = useState({
+    email: true,
+    password: true,
+    firstName: true,
+    lastName: true,
+    confirmPass: true,
+  });
+
+  const [isTouched, setIsTouched] = useState({
     email: false,
     password: false,
     firstName: false,
@@ -34,18 +45,18 @@ const SignUp = (props) => {
   const [inValid, setInvalid] = useState(false);
 
   const emailValueHandler = (event) => {
-    if (emailRef.current.value.trim().length === 0) {
+    if (emailRef.current.value.trim().length !== 0) {
       setErrorState((prevState) => {
-        return { ...prevState, email: true };
+        return { ...prevState, email: false };
       });
     }
     setEmail(event.target.value);
   };
 
   const passwordValueHandler = (event) => {
-    if (passwordRef.current.value.trim().length === 0) {
+    if (passwordRef.current.value.trim().length !== 0) {
       setErrorState((prevState) => {
-        return { ...prevState, password: true };
+        return { ...prevState, password: false };
       });
     }
 
@@ -53,57 +64,93 @@ const SignUp = (props) => {
   };
 
   const firstNameValueHandler = (event) => {
-    if (firstNameRef.current.value.trim().length === 0) {
+    if (firstNameRef.current.value.trim().length !== 0) {
       setErrorState((prevState) => {
-        return { ...prevState, firstName: true };
+        return { ...prevState, firstName: false };
       });
     }
     setFirstName(event.target.value);
   };
 
   const lastNameValueHandler = (event) => {
-    if (lastNameRef.current.value.trim().length === 0) {
+    if (lastNameRef.current.value.trim().length !== 0) {
       setErrorState((prevState) => {
-        return { ...prevState, lastName: true };
+        return { ...prevState, lastName: false };
       });
     }
     setLastName(event.target.value);
   };
 
   const confirmPassValueHandler = (event) => {
-    if (confirmPassRef.current.value.trim().length === 0) {
+    if (confirmPassRef.current.value.trim().length !== 0) {
       setErrorState((prevState) => {
-        return { ...prevState, confirmPass: true };
+        return { ...prevState, confirmPass: false };
       });
     }
     setConfirmPass(event.target.value);
   };
 
-  //True for login, false for sign up
-  const { page } = useParams();
-
   const logIn = page === "login";
   useEffect(() => {
     setInvalid(false);
+    setErrorState({
+      email: true,
+      password: true,
+      firstName: true,
+      lastName: true,
+      confirmPass: true,
+    });
+    setIsTouched({
+      email: false,
+      password: false,
+      firstName: false,
+      lastName: false,
+      confirmPass: false,
+    });
   }, [page]);
 
   const submitHandler = (event) => {
     setInvalid(false);
     event.preventDefault();
 
-    // if (Object.values(errorState).every((item) => !item)) {
-    //   console.log(errorState);
-    //   return;
-    // }
+    if (
+      (errorState.firstName === true ||
+        errorState.lastName === true ||
+        errorState.confirmPass === true ||
+        errorState.email === true ||
+        errorState.password === true) &&
+      page === "signup"
+    ) {
+      return;
+    }
 
-    fetch("http://localhost:8080/registration/" + page, {
-      method: "POST",
-      body: JSON.stringify({
+    if (
+      (errorState.email === true || errorState.password === true) &&
+      page === "login"
+    ) {
+      return;
+    }
+
+    let bodyObject;
+    if (page === "login") {
+      bodyObject = {
+        firstName: null,
+        lastName: null,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      };
+    } else {
+      bodyObject = {
         firstName: firstNameRef.current.value,
         lastName: lastNameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      }),
+      };
+    }
+
+    fetch("http://localhost:8080/registration/" + page, {
+      method: "POST",
+      body: JSON.stringify(bodyObject),
       headers: {
         "Content-Type": "application/json",
       },
@@ -132,6 +179,27 @@ const SignUp = (props) => {
     setLastName("");
   };
 
+  const myFunction = (event) => {
+    console.log(event.target);
+    setIsTouched((prevState) => {
+      const value = event.target.id;
+      switch (value) {
+        case "firstName":
+          return { ...prevState, firstName: true };
+        case "lastName":
+          return { ...prevState, lastName: true };
+        case "email":
+          return { ...prevState, email: true };
+        case "password":
+          return { ...prevState, password: true };
+        case "confirm-password":
+          return { ...prevState, confirmPass: true };
+        default:
+          break;
+      }
+    });
+  };
+
   return (
     <React.Fragment>
       <form
@@ -147,7 +215,7 @@ const SignUp = (props) => {
               <div autoComplete="off">
                 <TextField
                   className={
-                    errorState.firstName
+                    errorState.firstName && isTouched.firstName
                       ? `${classes.fname}  ${classes.error}`
                       : `${classes.fname}`
                   }
@@ -159,10 +227,11 @@ const SignUp = (props) => {
                   inputRef={firstNameRef}
                   value={firstName}
                   onChange={firstNameValueHandler}
+                  onBlur={myFunction}
                 />
                 <TextField
                   className={
-                    errorState.lastName
+                    errorState.lastName && isTouched.lastName
                       ? `${classes.lname}  ${classes.error}`
                       : `${classes.lname}`
                   }
@@ -174,12 +243,13 @@ const SignUp = (props) => {
                   inputRef={lastNameRef}
                   value={lastName}
                   onChange={lastNameValueHandler}
+                  onBlur={myFunction}
                 />
               </div>
             )}
             <TextField
               className={
-                errorState.email && !logIn
+                errorState.email && !logIn && isTouched.email
                   ? `${classes.input1}  ${classes.error}`
                   : `${classes.input1}`
               }
@@ -191,10 +261,11 @@ const SignUp = (props) => {
               value={email}
               onChange={emailValueHandler}
               inputRef={emailRef}
+              onBlur={myFunction}
             />
             <TextField
               className={
-                errorState.password
+                errorState.password && isTouched.password
                   ? `${classes.input2}  ${classes.error}`
                   : `${classes.input2}`
               }
@@ -207,11 +278,12 @@ const SignUp = (props) => {
               inputRef={passwordRef}
               value={password}
               onChange={passwordValueHandler}
+              onBlur={myFunction}
             />
             {!logIn && (
               <TextField
                 className={
-                  errorState.confirmPass
+                  errorState.confirmPass && isTouched.confirmPass
                     ? `${classes.confirm}  ${classes.error}`
                     : `${classes.confirm}`
                 }
@@ -224,6 +296,7 @@ const SignUp = (props) => {
                 inputRef={confirmPassRef}
                 value={confirmPass}
                 onChange={confirmPassValueHandler}
+                onBlur={myFunction}
               />
             )}
             <div className={classes.button}>
@@ -231,19 +304,19 @@ const SignUp = (props) => {
                 Submit
               </Button>
             </div>
+            {inValid && (
+              <div className={classes.errorMsg}>
+                {page === "login" && (
+                  <p>
+                    Wrong Username or Password.
+                    <br /> Please Try again!
+                  </p>
+                )}
+                {page === "signup" && <p>Email already exists!</p>}
+              </div>
+            )}
           </div>
         </div>
-        {inValid && (
-          <div className={classes.errorMsg}>
-            {page === "login" && (
-              <p>
-                Wrong Username or Password.
-                <br /> Please Try again!
-              </p>
-            )}
-            {page === "signup" && <p>Email already exists!</p>}
-          </div>
-        )}
       </form>
       <Footer />
     </React.Fragment>

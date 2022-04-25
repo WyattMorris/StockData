@@ -38,7 +38,6 @@
 .errorMsg {
   display: block;
   margin: 0 auto;
-  width: 25vw;
   margin-top: 1vh;
   font-family: monospace;
   white-space: break-spaces;
