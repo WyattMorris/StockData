@@ -22,7 +22,7 @@
   margin-top: 2vh;
   margin-bottom: 2vh;
   font-family: monospace;
-  margin-left: 2vw;
+  margin-left: 1vw;
 }
 .button1 {
   margin-top: 2vh;
@@ -52,19 +52,21 @@
 
 .flexContainer {
   display: flex;
-  flex-direction: row;
   width: 60vw;
   height: 20vh;
   margin: 0 auto;
   align-items: center;
+  /* border: 1px solid black; */
+  color: #45464a;
 }
 
 .leftContainer {
-  width: 60vw;
-  height: inherit;
-  justify-content: left;
+  height: 100%;
+  width: 100%;
   text-align: left;
+  /* border: 1px solid red; */
 }
+
 .space {
   margin-right: 1vh;
 }
@@ -72,14 +74,16 @@
 .inputs {
   display: flex;
 }
+
 .rightContainer {
-  width: 20vw;
-  height: inherit;
-  justify-content: center;
-  padding-left: 1vw;
-  margin-top: 2vh;
+  height: auto;
+  padding-left: 1vh;
+  display: flex;
+  /* border: 1px solid gray; */
 }
 
 .rightContainer h3 {
   font-size: 1.3em;
+  margin-right: 8%;
+  padding-bottom: 10px;
 }

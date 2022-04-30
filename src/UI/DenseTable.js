@@ -89,7 +89,12 @@ const DenseTable = (props) => {
                 %
               </TableCell>
               <TableCell sx={{ fontSize: myFontSize }} align="right">
-                {ticker.amount}
+                <NumberFormat
+                  value={ticker.amount.toFixed(2)}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={""}
+                />
               </TableCell>
               <TableCell sx={{ fontSize: myFontSize }} align="right">
                 <NumberFormat

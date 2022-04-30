@@ -107,10 +107,10 @@ const Form = () => {
                 id="outlined-basic"
                 label="Amount of Shares"
                 variant="outlined"
-                type="number"
+                type="decimal"
                 alt="Amount of Shares"
                 inputRef={sharesRef}
-                step=".1"
+                step={0.01}
                 onChange={shareValueHandler}
                 value={shareValue}
               />
@@ -130,10 +130,42 @@ const Form = () => {
                 </Button>
               </div>
             </div>
+            <div className={classes.rightContainer}>
+              <h3>
+                Value:&nbsp;
+                <NumberFormat
+                  value={returnTotal("value")}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"$"}
+                />
+              </h3>
+              <h3>
+                Shares:&nbsp;
+                <NumberFormat
+                  value={returnTotal("amount")}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={""}
+                />
+              </h3>
+              <h3>
+                Day&nbsp;Change:&nbsp;
+                <NumberFormat
+                  value={(
+                    returnTotal("change") / userContext.tickerList.length
+                  ).toFixed(2)}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                />
+                %
+              </h3>
+            </div>
           </div>
-          <div className={classes.rightContainer}>
+          {/* <div className={classes.rightContainer}>
+            <h3>Totals</h3>
             <h3>
-              Total Value:{" "}
+              Value:{" "}
               <NumberFormat
                 value={returnTotal("value")}
                 displayType={"text"}
@@ -142,7 +174,7 @@ const Form = () => {
               />
             </h3>
             <h3>
-              Total Shares:{" "}
+              Shares:{" "}
               <NumberFormat
                 value={returnTotal("amount")}
                 displayType={"text"}
@@ -161,7 +193,7 @@ const Form = () => {
               />
               %
             </h3>
-          </div>
+          </div> */}
         </div>
       </form>
       {!isValid && (
