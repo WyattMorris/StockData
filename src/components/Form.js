@@ -47,9 +47,6 @@ const Form = () => {
         }
       })
       .then((data) => {
-        //Ran into issue where YahooFinance would return object with 90% null properties
-        //Checking to see if the important ones are not null.
-
         if (data.price !== null || data.fullName !== null) {
           userContext.addTicker({
             ...data,
