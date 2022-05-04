@@ -42,7 +42,7 @@ const SignUp = (props) => {
   const lastNameRef = useRef("");
 
   //Make isloading state and show a brief Loading message?
-  const [inValid, setInvalid] = useState(false);
+  const [inValid, setInValid] = useState(false);
 
   const emailValueHandler = (event) => {
     if (emailRef.current.value.trim().length !== 0) {
@@ -92,7 +92,7 @@ const SignUp = (props) => {
 
   const logIn = page === "login";
   useEffect(() => {
-    setInvalid(false);
+    setInValid(false);
     setErrorState({
       email: true,
       password: true,
@@ -110,7 +110,8 @@ const SignUp = (props) => {
   }, [page]);
 
   const submitHandler = (event) => {
-    setInvalid(false);
+    setInValid(false);
+
     event.preventDefault();
 
     if (
@@ -157,7 +158,7 @@ const SignUp = (props) => {
     })
       .then((res) => {
         if (!res.ok) {
-          setInvalid(true);
+          setInValid(true);
           throw new Error("Username not found!");
         } else {
           return res.text();
@@ -170,7 +171,7 @@ const SignUp = (props) => {
         //Send user to the home screen
         history.replace("/");
       })
-      .catch((err) => console.log(err.message));
+      .catch(setInValid(true));
 
     setEmail("");
     setPassword("");

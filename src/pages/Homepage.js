@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../UI/Loading";
+import Error from "../UI/Error";
 
 const Homepage = (props) => {
   return (
@@ -30,18 +31,18 @@ const Homepage = (props) => {
                 Create Portfolio
               </Button>
             </NavLink>
-            <div className={styles.table}>
-              <DenseTable
-                listdata={props.listdata.sort((a, b) => b.price - a.price)}
-                display={true}
+            <DenseTable
+              listdata={props.listdata.sort((a, b) => b.price - a.price)}
+              display={true}
+            />
+            {props.isLoading && <Loading />}
+            {props.error && (
+              <Error
+                message={
+                  "Unable to Connect to Stock API - Please Try Again Later"
+                }
               />
-              {props.isLoading && <Loading />}
-              {props.error && (
-                <p>
-                  Unable to Connect to Stock API <br /> Please try again later.
-                </p>
-              )}
-            </div>
+            )}
           </div>
           {/* <div className={styles.arrow}>
             <FontAwesomeIcon

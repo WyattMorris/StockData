@@ -1,0 +1,17 @@
+.error {
+  color: crimson;
+  height: 4vh;
+  border: 1px solid #d8d8d8;
+  width: 60vw;
+  margin: 0 auto;
+  margin-top: 1vh;
+  font-size: 17px;
+
+  background-color: white;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
