@@ -167,11 +167,12 @@ const SignUp = (props) => {
       .then((data) => {
         //Successful login or sign up, setting authentication JWT token.
         userContext.login(data);
-        console.log(data);
         //Send user to the home screen
         history.replace("/");
       })
-      .catch(setInValid(true));
+      .catch(() => {
+        setInValid(true);
+      });
 
     setEmail("");
     setPassword("");
@@ -181,7 +182,6 @@ const SignUp = (props) => {
   };
 
   const myFunction = (event) => {
-    console.log(event.target);
     setIsTouched((prevState) => {
       const value = event.target.id;
       switch (value) {

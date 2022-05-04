@@ -10,6 +10,7 @@ const AuthContext = createContext({
   login: (token) => {},
   logout: () => {},
   tickerList: [],
+  firstName: "",
 });
 
 const retrieveStoredToken = () => {
@@ -31,11 +32,13 @@ const retrieveStoredToken = () => {
 export const AuthProvider = (props) => {
   const tokenData = retrieveStoredToken();
   let initialToken = null;
+  let storedName = null;
   if (tokenData) {
     initialToken = tokenData.token;
+    storedName = localStorage.getItem("firstName");
   }
   const [token, setToken] = useState(initialToken);
-  const [firstName, setFirstName] = useState(null);
+  const [firstName, setFirstName] = useState(storedName);
 
   useEffect(() => {
     if (token !== null) {
@@ -59,7 +62,7 @@ export const AuthProvider = (props) => {
           });
           setTickerList(newData);
         })
-        .catch((err) => {});
+        .catch(() => {});
     }
   }, [token]);
 
@@ -71,6 +74,7 @@ export const AuthProvider = (props) => {
   const logoutHandler = () => {
     setToken(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("firstName");
     localStorage.removeItem("expiration");
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -83,8 +87,10 @@ export const AuthProvider = (props) => {
 
     //Extract data from the token
     let decoded = jwt_decode(token);
-    console.log(decoded);
+
     setFirstName(decoded.firstName);
+    localStorage.setItem("firstName", decoded.firstName);
+
     localStorage.setItem("expiration", decoded.exp);
     const remainingTime = decoded.exp - new Date().getTime();
     logoutTimer = setTimeout(logoutHandler, remainingTime);

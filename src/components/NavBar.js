@@ -14,7 +14,10 @@ const NavBar = () => {
   return (
     <nav>
       <Link to="/home">
-        <h1>StockData</h1>
+        {userContext.isLoggedIn && (
+          <h1>StockData - Welcome {userContext.firstName}</h1>
+        )}
+        {!userContext.isLoggedIn && <h1>StockData</h1>}
       </Link>
       <div className={styles.button}>
         {!isLoggedIn && (
