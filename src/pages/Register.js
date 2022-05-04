@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import classes from "../styles/SignUp.module.css";
+import classes from "../styles/Register.module.css";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import AuthContext from "../context/auth-context";

@@ -152,9 +152,6 @@ export const AuthProvider = (props) => {
           throw new Error("Unable to Save");
         }
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((err) => {
         console.log(err.message);
       });

@@ -1,6 +1,8 @@
 .header {
   text-align: center;
-  height: 76vh;
+  min-height: 72vh;
+  height: auto;
+  margin-bottom: 4vh;
 }
 
 .h1 {

@@ -26,6 +26,15 @@ const Form = () => {
     //Preventing the default form action of submission
     event.preventDefault();
 
+    if (
+      tickerRef.current.value.trim().length === 0 ||
+      sharesRef.current.value.trim().length === 0
+    ) {
+      setTickerValue("");
+      setShareValue("");
+      return;
+    }
+
     setIsValid(true);
     const url =
       "http://localhost:8080/stockdata/" +

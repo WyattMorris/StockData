@@ -44,18 +44,6 @@ const Homepage = (props) => {
               />
             )}
           </div>
-          {/* <div className={styles.arrow}>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              size={"2x"}
-              sx={{ color: "crimson" }}
-            />
-          </div> */}
-          {/* <div className={styles.graphContainer}>
-            <div className={styles.graph}>
-              <Graph title="First Graph" />
-            </div>
-          </div> */}
         </div>
         <Footer />
       </React.Fragment>
