@@ -20,7 +20,7 @@ const Homepage = (props) => {
           <div className={styles.header}>
             <h1 className={styles.h1}>
               Lets Build
-              <br /> our Portfolio
+              <br /> Your Portfolio
             </h1>
             <NavLink to="/portfolio">
               <Button
