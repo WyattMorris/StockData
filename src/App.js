@@ -53,7 +53,7 @@ const App = () => {
           {!userContext.isLoggedIn && <Redirect to="/register/signup" />}
         </Route>
 
-        <Route path="/home" exact>
+        <Route path="/StockData" exact>
           <Homepage
             listdata={displayArray.sort((a, b) => b.value - a.value)}
             isLoading={isLoading}
@@ -61,7 +61,7 @@ const App = () => {
           />
         </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/StockData" />
         </Route>
         {!userContext.isLoggedIn && (
           <Route exact path="/register/:page">
@@ -70,7 +70,7 @@ const App = () => {
           </Route>
         )}
         <Route path="*">
-          <Redirect to="/home" />
+          <Redirect to="/StockData" />
         </Route>
       </Switch>
     </>
