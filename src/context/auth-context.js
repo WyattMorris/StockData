@@ -62,7 +62,9 @@ export const AuthProvider = (props) => {
           });
           setTickerList(newData);
         })
-        .catch(() => {});
+        .catch(() => {
+          setTickerList([]);
+        });
     }
   }, [token]);
 
@@ -134,7 +136,6 @@ export const AuthProvider = (props) => {
         amount: element.amount,
       };
     });
-    console.log(newList);
     let url = "http://localhost:8080/stockdata/portfolio/save";
     fetch(url, {
       method: "POST",
@@ -159,7 +160,6 @@ export const AuthProvider = (props) => {
 
   const removeTickerHandler = (ticker) => {
     setTickerList((prevState) => {
-      console.log(ticker.currentTarget.id);
       return prevState.filter((el) => {
         return el.id !== ticker.currentTarget.id;
       });
