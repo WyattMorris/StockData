@@ -11,6 +11,7 @@ const AuthContext = createContext({
   logout: () => {},
   tickerList: [],
   firstName: "",
+  base_url: "",
 });
 
 const retrieveStoredToken = () => {
@@ -42,7 +43,8 @@ export const AuthProvider = (props) => {
 
   useEffect(() => {
     if (token !== null) {
-      const url = "http://localhost:8080/stockdata/portfolio/stocks";
+      const url =
+        "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/stockdata/portfolio/stocks";
       fetch(url, {
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +138,8 @@ export const AuthProvider = (props) => {
         amount: element.amount,
       };
     });
-    let url = "http://localhost:8080/stockdata/portfolio/save";
+    let url =
+      "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/stockdata/portfolio/save";
     fetch(url, {
       method: "POST",
       body: JSON.stringify(newList),
@@ -183,6 +186,7 @@ export const AuthProvider = (props) => {
     saveList: saveListHandler,
     tickerList: tickerList,
     firstName,
+    base_url: "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080",
   };
 
   return (

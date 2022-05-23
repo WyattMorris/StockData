@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:8080/stockdata/", {
+    fetch(AuthContext.base_url + "stockdata/", {
       method: "POST",
       body: JSON.stringify([
         "JNJ",
