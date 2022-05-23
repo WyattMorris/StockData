@@ -37,7 +37,7 @@ const Form = () => {
 
     setIsValid(true);
     const url =
-      "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/stockdata/" +
+      "https://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8443/stockdata/" +
       tickerRef.current.value +
       "/" +
       sharesRef.current.value;

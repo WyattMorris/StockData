@@ -150,7 +150,7 @@ const SignUp = (props) => {
     }
 
     fetch(
-      "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/registration/" +
+      "https://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8443/registration/" +
         page,
       {
         method: "POST",

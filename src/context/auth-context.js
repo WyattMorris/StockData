@@ -44,7 +44,7 @@ export const AuthProvider = (props) => {
   useEffect(() => {
     if (token !== null) {
       const url =
-        "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/stockdata/portfolio/stocks";
+        "https://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8443/stockdata/portfolio/stocks";
       fetch(url, {
         headers: {
           "Content-Type": "application/json",
@@ -139,7 +139,7 @@ export const AuthProvider = (props) => {
       };
     });
     let url =
-      "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/stockdata/portfolio/save";
+      "https://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8443/stockdata/portfolio/save";
     fetch(url, {
       method: "POST",
       body: JSON.stringify(newList),
@@ -186,7 +186,7 @@ export const AuthProvider = (props) => {
     saveList: saveListHandler,
     tickerList: tickerList,
     firstName,
-    base_url: "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080",
+    base_url: "https://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8443",
   };
 
   return (
