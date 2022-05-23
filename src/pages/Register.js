@@ -149,13 +149,17 @@ const SignUp = (props) => {
       };
     }
 
-    fetch("http://localhost:8080/registration/" + page, {
-      method: "POST",
-      body: JSON.stringify(bodyObject),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/registration/" +
+        page,
+      {
+        method: "POST",
+        body: JSON.stringify(bodyObject),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           setInValid(true);

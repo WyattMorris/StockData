@@ -14,24 +14,27 @@ const App = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(AuthContext.base_url + "stockdata/", {
-      method: "POST",
-      body: JSON.stringify([
-        "JNJ",
-        "KO",
-        "NFG",
-        "MMM",
-        "FRT",
-        "BKH",
-        "NWN",
-        "LEG",
-        "UVV",
-        "MO",
-      ]),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      "http://ec2-18-191-253-70.us-east-2.compute.amazonaws.com:8080/stockdata/",
+      {
+        method: "POST",
+        body: JSON.stringify([
+          "JNJ",
+          "KO",
+          "NFG",
+          "MMM",
+          "FRT",
+          "BKH",
+          "NWN",
+          "LEG",
+          "UVV",
+          "MO",
+        ]),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         return res.json();
       })
